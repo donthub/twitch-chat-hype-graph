@@ -1,3 +1,4 @@
 easygui~=0.98.2
 matplotlib~=3.4.1
 twitch-python~=0.0.19
+mplcursors~=0.4

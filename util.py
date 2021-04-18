@@ -1,3 +1,4 @@
+import math
 import re
 
 from easygui import enterbox
@@ -12,22 +13,44 @@ class Util:
         return pattern.match(url).group(1)
 
     @staticmethod
-    def parse_duration(str_duration) -> int:
-        duration = 0
+    def time_letter_to_seconds(time) -> int:
+        seconds = 0
 
         hours_pattern = re.compile(r'(\d+)h.*')
-        hours_match = hours_pattern.match(str_duration)
+        hours_match = hours_pattern.match(time)
         if hours_match:
-            duration += int(hours_match.group(1)) * 3600
+            seconds += int(hours_match.group(1)) * 3600
 
         minutes_pattern = re.compile(r'.*?(\d+)m.*')
-        minutes_match = minutes_pattern.match(str_duration)
+        minutes_match = minutes_pattern.match(time)
         if minutes_match:
-            duration += int(minutes_match.group(1)) * 60
+            seconds += int(minutes_match.group(1)) * 60
 
         seconds_pattern = re.compile(r'.*?(\d+)s')
-        seconds_match = seconds_pattern.match(str_duration)
+        seconds_match = seconds_pattern.match(time)
         if seconds_match:
-            duration += int(seconds_match.group(1))
+            seconds += int(seconds_match.group(1))
 
-        return duration
+        return seconds
+
+    @staticmethod
+    def seconds_to_time(seconds: int, h_separator, m_separator, s_separator) -> str:
+        time = str(math.floor(seconds / 3600)) + h_separator
+        time += Util.prefix_number(math.floor(seconds % 3600 / 60)) + m_separator
+        time += Util.prefix_number(math.floor(seconds % 60)) + s_separator
+        return time
+
+    @staticmethod
+    def seconds_to_time_letter(seconds: int) -> str:
+        return Util.seconds_to_time(seconds, h_separator='h', m_separator='m', s_separator='s')
+
+    @staticmethod
+    def seconds_to_time_colon(seconds):
+        return Util.seconds_to_time(seconds, h_separator=':', m_separator=':', s_separator='')
+
+    @staticmethod
+    def prefix_number(number: int) -> str:
+        str_number = str(number)
+        if len(str_number) == 1:
+            str_number = '0' + str_number
+        return str_number

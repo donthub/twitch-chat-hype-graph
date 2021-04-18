@@ -1,5 +1,3 @@
-import json
-
 from settings import Settings
 from util import Util
 
@@ -9,11 +7,8 @@ class DataTransformer:
     def __init__(self, settings: Settings):
         self.settings = settings
 
-    def transform(self, id):
-        with open(f'chatlogs/{id}.json', 'r') as file:
-            content = json.load(file)
-
-        duration = Util.parse_duration(content['video']['duration'])
+    def transform(self, content):
+        duration = Util.time_letter_to_seconds(content['video']['duration'])
         interval = self.settings.interval
         neighbor = self.settings.interval
 

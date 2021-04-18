@@ -8,10 +8,10 @@ if __name__ == '__main__':
     settings = Settings()
     id = Util.get_id()
 
-    ChatCollector(settings).collect(id)
+    content = ChatCollector(settings).collect(id)
 
-    data_x, data_y = DataTransformer(settings).transform(id)
-    Drawer(settings, id).draw(data_x, data_y)
+    data_x, data_y = DataTransformer(settings).transform(content)
+    Drawer(settings, content).draw(data_x, data_y)
 
     while True:
         pass
