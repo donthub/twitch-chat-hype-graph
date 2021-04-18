@@ -1,6 +1,8 @@
 # Purpose
 
-For the given Twitch video, the application draws a graph that shows average interactions (Twitch chat comments) for each segment of the video. Clicking at any point on the graph opens the video around that time.
+For the given Twitch video, the application draws a graph that shows average comments for each segment of the video. Clicking at any point on the graph opens the video around that time.
+
+![Screenshot](screenshot.png?raw=true "Screenshot")
 
 # Pre-requisites
 
