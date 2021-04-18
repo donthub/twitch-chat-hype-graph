@@ -1,0 +1,3 @@
+easygui~=0.98.2
+tcd~=3.2.1
+matplotlib~=3.4.1

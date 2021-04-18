@@ -1,0 +1,7 @@
+{
+  "client_id": "",
+  "client_secret": "",
+  "interval": 10,
+  "neighbor": 10,
+  "preview": 30
+}
