@@ -1,8 +1,10 @@
-import sys
+import json
+import os
 
-import tcd
+import twitch
 
 from settings import Settings
+from util import Util
 
 
 class ChatCollector:
@@ -11,18 +13,26 @@ class ChatCollector:
         self.settings = settings
 
     def collect(self, id):
-        print('Downloading VOD chat logs. Please stand by ...')
+        if os.path.exists(f'chatlogs/{id}.json'):
+            return
 
-        sys.argv = []
-        sys.argv.append('--video')
-        sys.argv.append('--client-id')
-        sys.argv.append(self.settings.client_id)
-        sys.argv.append('--client-secret')
-        sys.argv.append(self.settings.client_secret)
-        sys.argv.append('-v')
-        sys.argv.append(id)
-        sys.argv.append('--format')
-        sys.argv.append('json')
-        sys.argv.append('--output')
-        sys.argv.append('chatlogs')
-        tcd.main()
+        print('Downloading VOD chat logs. Please stand by ...')
+        helix = twitch.Helix(self.settings.client_id, self.settings.client_secret)
+        video = helix.video(id)
+
+        duration = Util.parse_duration(video.duration)
+
+        comments = []
+        for comment in video.comments:
+            print(f'Reading comment: {round(comment.content_offset_seconds)}/{duration}')
+            comments.append({"content_offset_seconds": comment.content_offset_seconds})
+
+        content = {
+            "video": {
+                "duration": video.duration
+            },
+            "comments": comments
+        }
+
+        with open(f'chatlogs/{id}.json', 'w') as file:
+            json.dump(content, file)

@@ -25,5 +25,5 @@ Provide Twitch VOD URL or ID in the respective prompt. The program will download
 
 # Libraries
 
-* Uses the following for downloading Twitch VOD chat logs: https://github.com/PetterKraabol/Twitch-Chat-Downloader
+* Uses the following for downloading Twitch VOD chat logs: https://github.com/PetterKraabol/Twitch-Python
 * Uses the following for drawing the graph: https://github.com/matplotlib/matplotlib

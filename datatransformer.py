@@ -1,7 +1,7 @@
 import json
-import re
 
 from settings import Settings
+from util import Util
 
 
 class DataTransformer:
@@ -13,7 +13,7 @@ class DataTransformer:
         with open(f'chatlogs/{id}.json', 'r') as file:
             content = json.load(file)
 
-        duration = self.parse_duration(content)
+        duration = Util.parse_duration(content['video']['duration'])
         interval = self.settings.interval
         neighbor = self.settings.interval
 
@@ -32,24 +32,3 @@ class DataTransformer:
 
         data_y = list(map(lambda items: len(items), data_y))
         return data_x, data_y
-
-    def parse_duration(self, content) -> int:
-        duration = 0
-        str_duration = content['video']['duration']
-
-        hours_pattern = re.compile(r'(\d+)h.*')
-        hours_match = hours_pattern.match(str_duration)
-        if hours_match:
-            duration += int(hours_match.group(1)) * 3600
-
-        minutes_pattern = re.compile(r'.*?(\d+)m.*')
-        minutes_match = minutes_pattern.match(str_duration)
-        if minutes_match:
-            duration += int(minutes_match.group(1)) * 60
-
-        seconds_pattern = re.compile(r'.*?(\d+)s')
-        seconds_match = seconds_pattern.match(str_duration)
-        if seconds_match:
-            duration += int(seconds_match.group(1))
-
-        return duration
