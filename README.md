@@ -6,9 +6,11 @@ For the given Twitch video, the application draws a graph that shows average com
 
 # Pre-requisites
 
-Existing Twitch Developer application that you have the client ID and secret for. This is used for downloading Twitch VOD chat logs.
+Python 3.8 and existing Twitch Developer application that you have the client ID and secret for. This is used for downloading Twitch VOD chat logs.
 
 # Usage
+
+Install requirements with `pip install -r requirements.txt`. Run with `main.py`. 
 
 Running the program for the first time will copy `settings.json.reference` to `settings.json`.
 
@@ -27,5 +29,6 @@ Provide Twitch VOD URL or ID in the respective prompt. The program will download
 
 # Libraries
 
-* Uses the following for downloading Twitch VOD chat logs: https://github.com/PetterKraabol/Twitch-Python
-* Uses the following for drawing the graph: https://github.com/matplotlib/matplotlib
+* Uses the following library for user input: https://github.com/robertlugg/easygui
+* Uses the following library for downloading Twitch VOD chat logs: https://github.com/PetterKraabol/Twitch-Python
+* Uses the following library for drawing the graph: https://github.com/matplotlib/matplotlib
